@@ -10,9 +10,16 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - uses: Doozers/depviz-action@b314e1221b1c973adb7bff9fb81d138194bab4ee
+      - uses: Doozers/depviz-action@8cbbbeb05b5d77ca665637ec642f66238b729285
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          targets: 'moul/depviz-test gnolang/roadmap'
+          fetch-targets: 'moul/depviz-test gnolang/roadmap'
           json-output: 'res.json'
+      
+      - uses: Doozers/depviz-action@8cbbbeb05b5d77ca665637ec642f66238b729285
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          generation-targets: 'gnolang/roadmap'
+          json-output: 'roadmap.json'
