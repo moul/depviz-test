@@ -10,25 +10,37 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+        with:
+          ref: 'depviz-generate'
       # fetch
-      - uses: Doozers/depviz-action@8cbbbeb05b5d77ca665637ec642f66238b729285
+      - uses: Doozers/depviz-action@b726dac85c42582e815d7b62968269942b022ad3
+
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           targets: 'moul/depviz-test gnolang/roadmap'
       
       # gen roadmap1.json
-      - uses: Doozers/depviz-action@8cbbbeb05b5d77ca665637ec642f66238b729285
+      - uses: Doozers/depviz-action@b726dac85c42582e815d7b62968269942b022ad3
         with:
           targets: 'gnolang/roadmap'
           json-output: 'roadmap1.json'
 
       # gen roadmap2.json
-      - uses: Doozers/depviz-action@8cbbbeb05b5d77ca665637ec642f66238b729285
+      - uses: Doozers/depviz-action@b726dac85c42582e815d7b62968269942b022ad3
         with:
           targets: 'moul/depviz-test'
           json-output: 'roadmap2.json'
           
+      
       # publish on a branch
-      ...
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        env:          
+          GITHUB_TOKEN: $GITHUB_TOKEN
+        with:
+          ##file_pattern: "${{ inputs.json-output }} ${{ inputs.png-output }} ${{ inputs.svg-output }} ${{ inputs.csv-output }}"
+          file_pattern: 'roadmap1.json roadmap2.json'
+          commit_message: 'build: generate'
+          branch: 'depviz-generate'
+          push_options: '--force'      
 
