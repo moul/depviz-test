@@ -10,16 +10,25 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+      # fetch
       - uses: Doozers/depviz-action@8cbbbeb05b5d77ca665637ec642f66238b729285
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          fetch-targets: 'moul/depviz-test gnolang/roadmap'
-          json-output: 'res.json'
+          targets: 'moul/depviz-test gnolang/roadmap'
       
+      # gen roadmap1.json
       - uses: Doozers/depviz-action@8cbbbeb05b5d77ca665637ec642f66238b729285
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          generation-targets: 'gnolang/roadmap'
-          json-output: 'roadmap.json'
+          targets: 'gnolang/roadmap'
+          json-output: 'roadmap1.json'
+
+      # gen roadmap2.json
+      - uses: Doozers/depviz-action@8cbbbeb05b5d77ca665637ec642f66238b729285
+        with:
+          targets: 'moul/depviz-test'
+          json-output: 'roadmap2.json'
+          
+      # publish on a branch
+      ...
+
