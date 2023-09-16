@@ -1,3 +1,5 @@
+name: depviz
+
 on:
   workflow_dispatch:
   push:
@@ -6,12 +8,13 @@ on:
 
 jobs:
   generate:
+    name: generate
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
         with:
-          ref: 'depviz-generate'
+          ref: depviz-generate
       # fetch only
       - uses: moul/depviz-action@main
         env:
@@ -22,14 +25,18 @@ jobs:
       # gen roadmap1.json
       - uses: moul/depviz-action@main
         with:
-          targets: 'gnolang/roadmap'
-          json-output: 'roadmap1.json'
+          targets: gnolang/roadmap
+          json-output: roadmap1.json
+          png-output: roadmap1.png
+          svg-output: roadmap1.svg
 
       # gen roadmap2.json
       - uses: moul/depviz-action@main
         with:
-          targets: 'moul/depviz-test'
-          json-output: 'roadmap2.json'
+          targets: moul/depviz-test
+          json-output: roadmap2.json
+          png-output: roadmap2.png
+          svg-output: roadmap2.svg
           
       
       # publish on a branch
