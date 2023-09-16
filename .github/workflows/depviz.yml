@@ -1,4 +1,4 @@
-name: "depviz"
+name: depviz
 
 on:
   workflow_dispatch:
@@ -8,6 +8,7 @@ on:
 
 jobs:
   generate:
+    name: generate
     runs-on: ubuntu-latest
 
     steps:
